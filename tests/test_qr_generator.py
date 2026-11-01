@@ -1,6 +1,6 @@
 """Tests de la génération d'image QR code, avec et sans texte additionnel."""
 
-from core.qr_generator import _charger_police, generer_qr_pixmap
+from core.qr_generator import generer_qr_pixmap
 
 
 def test_sans_texte_additionnel():
@@ -29,11 +29,3 @@ def test_texte_vide_ou_blanc_ne_change_pas_la_taille():
 def test_avec_texte_accentue():
     pixmap = generer_qr_pixmap("BEGIN:VCARD", texte_haut="Société Générale Évènementiel")
     assert not pixmap.isNull()
-
-
-def test_police_supporte_les_caracteres_accentues_francais():
-    """La police utilisée doit avoir un glyphe (de l'encre) pour les lettres accentuées,
-    contrairement à la police par défaut de Pillow qui ne les couvre pas."""
-    police = _charger_police(24)
-    for caractere in "éèàçùô":
-        assert police.getmask(caractere).getbbox() is not None

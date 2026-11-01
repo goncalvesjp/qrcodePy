@@ -8,7 +8,8 @@ et export en PNG, JPEG ou PDF.
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 
-from core.export import FILTRES, completer_extension, enregistrer_qr
+from core.carte_visite import generer_carte_pixmap
+from core.export import FILTRES, completer_extension, enregistrer_image
 from core.qr_generator import generer_qr_pixmap
 from core.ressources import version_application
 from core.vcard import VCard
@@ -22,9 +23,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self._qr_pixmap = None
+        self._vcard = None
 
         self.generer_button.clicked.connect(self.handle_generer_button_click)
         self.enregistrer_button.clicked.connect(self.handle_enregistrer_button_click)
+        self.carte_button.clicked.connect(self.handle_carte_button_click)
         self.action_quit.triggered.connect(self.close)
         self.action_a_propos.triggered.connect(self.handle_a_propos_click)
 
@@ -55,6 +58,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             )
             return
 
+        self._vcard = vcard
         self._qr_pixmap = generer_qr_pixmap(
             vcard.to_vcard_string(),
             texte_haut=self.texte_haut_edit.text(),
@@ -67,28 +71,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             )
         )
         self.enregistrer_button.setEnabled(True)
+        self.carte_button.setEnabled(True)
         self.statusbar.showMessage("QR code généré.", 5000)
 
     def handle_enregistrer_button_click(self):
         """Enregistre le QR code généré en PNG, JPEG ou PDF."""
         if self._qr_pixmap is None:
             return
+        self._enregistrer_pixmap(self._qr_pixmap, "Enregistrer le QR code", "qrcode.png")
 
-        chemin, filtre = QFileDialog.getSaveFileName(
-            self, "Enregistrer le QR code", "qrcode.png", FILTRES
-        )
+    def handle_carte_button_click(self):
+        """Enregistre la carte de visite (QR code + coordonnées) en PNG, JPEG ou PDF."""
+        if self._vcard is None:
+            return
+        carte_pixmap = generer_carte_pixmap(self._vcard)
+        self._enregistrer_pixmap(carte_pixmap, "Enregistrer la carte de visite", "carte-de-visite.png")
+
+    def _enregistrer_pixmap(self, pixmap, titre_dialogue: str, nom_fichier_defaut: str):
+        chemin, filtre = QFileDialog.getSaveFileName(self, titre_dialogue, nom_fichier_defaut, FILTRES)
         if not chemin:
             return
 
         chemin = completer_extension(chemin, filtre)
 
         try:
-            enregistrer_qr(self._qr_pixmap, chemin)
+            enregistrer_image(pixmap, chemin)
         except OSError:
             QMessageBox.critical(self, "Erreur", "Impossible d'enregistrer le fichier.")
             return
 
-        self.statusbar.showMessage(f"QR code enregistré : {chemin}", 5000)
+        self.statusbar.showMessage(f"Fichier enregistré : {chemin}", 5000)
 
     def handle_a_propos_click(self):
         """Affiche les informations sur l'application."""

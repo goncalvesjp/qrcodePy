@@ -1,4 +1,4 @@
-"""Enregistrement du QR code généré sur disque (PNG, JPEG ou PDF)."""
+"""Enregistrement d'une image (QR code, carte de visite, ...) sur disque (PNG, JPEG ou PDF)."""
 
 from PyQt6.QtCore import QMarginsF, QSizeF
 from PyQt6.QtGui import QPageSize, QPainter, QPdfWriter, QPixmap
@@ -20,7 +20,7 @@ def completer_extension(chemin: str, filtre: str) -> str:
     return chemin + extensions[0]
 
 
-def enregistrer_qr(pixmap: QPixmap, chemin: str) -> None:
+def enregistrer_image(pixmap: QPixmap, chemin: str) -> None:
     """Enregistre `pixmap` en PNG, JPEG ou PDF selon l'extension de `chemin`."""
     extension = chemin.rsplit(".", 1)[-1].lower() if "." in chemin else ""
 
@@ -35,7 +35,7 @@ def enregistrer_qr(pixmap: QPixmap, chemin: str) -> None:
 
 
 def _enregistrer_en_pdf(pixmap: QPixmap, chemin: str) -> None:
-    """Place le QR code, à sa taille d'origine en pixels, sur une page PDF à sa mesure."""
+    """Place l'image, à sa taille d'origine en pixels, sur une page PDF à sa mesure."""
     resolution = 300  # points par pouce, détermine la taille physique de la page
 
     writer = QPdfWriter(chemin)

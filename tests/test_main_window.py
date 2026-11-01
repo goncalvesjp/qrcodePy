@@ -42,6 +42,28 @@ def test_generer_button_avec_champs_affiche_le_qr_code(qtbot):
     assert window._qr_pixmap is not None
     assert not window.qr_preview_label.pixmap().isNull()
     assert window.enregistrer_button.isEnabled()
+    assert window.carte_button.isEnabled()
+
+
+def test_carte_button_enregistre_la_carte_de_visite(qtbot, monkeypatch, tmp_path):
+    """Le bouton carte de visite doit proposer un fichier et l'enregistrer."""
+    chemin = tmp_path / "carte.png"
+    monkeypatch.setattr(
+        "core.main_window.QFileDialog.getSaveFileName",
+        lambda *args, **kwargs: (str(chemin), "Image PNG (*.png)"),
+    )
+
+    window = MainWindow()
+    qtbot.addWidget(window)
+
+    window.prenom_edit.setText("Jean")
+    window.nom_edit.setText("Dupont")
+    window.emails_edit.setText("jean.dupont@exemple.com")
+    qtbot.mouseClick(window.generer_button, Qt.MouseButton.LeftButton)
+
+    qtbot.mouseClick(window.carte_button, Qt.MouseButton.LeftButton)
+
+    assert chemin.exists()
 
 
 def test_action_a_propos_affiche_le_dialogue(qtbot, monkeypatch):

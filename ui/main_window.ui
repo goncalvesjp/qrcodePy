@@ -296,7 +296,17 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>Enregistrer...</string>
+         <string>Enregistrer le QR code...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="carte_button">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Enregistrer la carte de visite...</string>
         </property>
        </widget>
       </item>

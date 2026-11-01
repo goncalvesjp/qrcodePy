@@ -4,6 +4,13 @@ Application de bureau PyQt6 pour générer des QR codes. Premier type pris en
 charge : carte de contact (vCard), avec nom, prénom, société, email(s),
 mobile(s), téléphone(s) et adresse.
 
+En plus du QR code seul, l'application peut générer une **carte de visite
+numérique** (`core/carte_visite.py`) : QR code + nom, mobile, téléphone et
+email au format carte de crédit (ISO/CEI 7810 ID-1), exportable en PNG, JPEG
+ou PDF — à enregistrer, imprimer ou partager (ce n'est pas un pass Apple
+Wallet/Cartes à proprement parler : cela nécessiterait un certificat Apple
+Developer "Pass Type ID" pour signer un fichier `.pkpass`).
+
 ## Prérequis
 
 - Python 3
