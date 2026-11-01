@@ -1,4 +1,4 @@
-# Générateur de QR Codes
+# QR Visite
 
 Application de bureau PyQt6 pour générer des QR codes. Premier type pris en
 charge : carte de contact (vCard), avec nom, prénom, société, email(s),
@@ -45,7 +45,7 @@ n'apparaît pendant les tests).
 make macos
 ```
 
-Produit `dist/macos/GenerateurQRCode.app` via [PyInstaller](https://pyinstaller.org/).
+Produit `dist/macos/QRVisite.app` via [PyInstaller](https://pyinstaller.org/).
 
 ### Linux
 
@@ -53,7 +53,7 @@ Produit `dist/macos/GenerateurQRCode.app` via [PyInstaller](https://pyinstaller.
 make linux
 ```
 
-Produit `dist/linux/generateur-qrcode` (binaire ELF x86_64 autonome).
+Produit `dist/linux/qr-visite` (binaire ELF x86_64 autonome).
 
 Ce build est fait dans un conteneur Ubuntu via
 [`container`](https://github.com/apple/container), l'outil de

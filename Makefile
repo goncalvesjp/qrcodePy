@@ -1,5 +1,5 @@
-APP_NAME    := GenerateurQRCode
-LINUX_BIN   := generateur-qrcode
+APP_NAME    := QRVisite
+LINUX_BIN   := qr-visite
 VERSION     := $(shell cat VERSION)
 
 PYTHON      := python3

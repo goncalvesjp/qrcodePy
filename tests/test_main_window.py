@@ -8,7 +8,7 @@ from core.main_window import MainWindow
 def test_main_window_creation():
     """La fenêtre principale doit s'instancier sans erreur."""
     window = MainWindow()
-    assert window.windowTitle() == "Générateur de QR Codes"
+    assert window.windowTitle() == "QR Visite"
 
 
 def test_generer_button_sans_champ_affiche_avertissement(qtbot, monkeypatch):
@@ -58,4 +58,4 @@ def test_action_a_propos_affiche_le_dialogue(qtbot, monkeypatch):
     window.action_a_propos.trigger()
 
     assert len(appels) == 1
-    assert "Générateur de QR Codes" in appels[0][2]
+    assert "QR Visite" in appels[0][2]

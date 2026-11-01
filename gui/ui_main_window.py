@@ -183,7 +183,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Générateur de QR Codes"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "QR Visite"))
         self.contact_group.setTitle(_translate("MainWindow", "Carte de contact (vCard)"))
         self.prenom_label.setText(_translate("MainWindow", "Prénom :"))
         self.nom_label.setText(_translate("MainWindow", "Nom :"))

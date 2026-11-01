@@ -26,7 +26,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='GenerateurQRCode',
+    name='QRVisite',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -45,11 +45,11 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='GenerateurQRCode',
+    name='QRVisite',
 )
 app = BUNDLE(
     coll,
-    name='GenerateurQRCode.app',
+    name='QRVisite.app',
     icon=os.path.join(PROJECT_ROOT, 'assets', 'icon.icns'),
     bundle_identifier=None,
 )

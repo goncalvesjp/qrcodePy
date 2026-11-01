@@ -94,8 +94,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Affiche les informations sur l'application."""
         QMessageBox.about(
             self,
-            "À propos de Générateur de QR Codes",
-            "<h3>Générateur de QR Codes</h3>"
+            "À propos de QR Visite",
+            "<h3>QR Visite</h3>"
             f"<p>Version {version_application()}</p>"
             "<p>Application de bureau PyQt6 pour générer des QR codes : "
             "carte de contact (vCard), texte personnalisé au-dessus/en-dessous, "
