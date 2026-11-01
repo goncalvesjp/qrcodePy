@@ -120,93 +120,107 @@
               </widget>
              </item>
              <item row="7" column="0">
+              <widget class="QLabel" name="mobile_secondaire_label">
+               <property name="text">
+                <string>Mobile secondaire :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLineEdit" name="mobile_secondaire_edit">
+               <property name="placeholderText">
+                <string>ex: 06 98 76 54 32</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
               <widget class="QLabel" name="telephones_domicile_label">
                <property name="text">
                 <string>Téléphone domicile :</string>
                </property>
               </widget>
              </item>
-             <item row="7" column="1">
+             <item row="8" column="1">
               <widget class="QLineEdit" name="telephones_domicile_edit">
                <property name="placeholderText">
                 <string>ex: 01 23 45 67 89</string>
                </property>
               </widget>
              </item>
-             <item row="8" column="0">
+             <item row="9" column="0">
               <widget class="QLabel" name="telephones_travail_label">
                <property name="text">
                 <string>Téléphone travail :</string>
                </property>
               </widget>
              </item>
-             <item row="8" column="1">
+             <item row="9" column="1">
               <widget class="QLineEdit" name="telephones_travail_edit">
                <property name="placeholderText">
                 <string>ex: 01 98 76 54 32</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="0">
+             <item row="10" column="0">
               <widget class="QLabel" name="fax_label">
                <property name="text">
                 <string>Fax :</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="1">
+             <item row="10" column="1">
               <widget class="QLineEdit" name="fax_edit"/>
              </item>
-             <item row="10" column="0">
+             <item row="11" column="0">
               <widget class="QLabel" name="adresse_label">
                <property name="text">
                 <string>Adresse :</string>
                </property>
               </widget>
              </item>
-             <item row="10" column="1">
+             <item row="11" column="1">
               <widget class="QPlainTextEdit" name="adresse_edit">
                <property name="maximumHeight">
                 <number>60</number>
                </property>
               </widget>
              </item>
-             <item row="11" column="0">
+             <item row="12" column="0">
               <widget class="QLabel" name="url_label">
                <property name="text">
                 <string>Site web :</string>
                </property>
               </widget>
              </item>
-             <item row="11" column="1">
+             <item row="12" column="1">
               <widget class="QLineEdit" name="url_edit">
                <property name="placeholderText">
                 <string>ex: www.exemple.com</string>
                </property>
               </widget>
              </item>
-             <item row="12" column="0">
+             <item row="13" column="0">
               <widget class="QLabel" name="linkedin_label">
                <property name="text">
                 <string>LinkedIn :</string>
                </property>
               </widget>
              </item>
-             <item row="12" column="1">
+             <item row="13" column="1">
               <widget class="QLineEdit" name="linkedin_edit">
                <property name="placeholderText">
                 <string>ex: jean-dupont ou https://www.linkedin.com/in/jean-dupont</string>
                </property>
               </widget>
              </item>
-             <item row="13" column="0">
+             <item row="14" column="0">
               <widget class="QLabel" name="note_label">
                <property name="text">
                 <string>Note :</string>
                </property>
               </widget>
              </item>
-             <item row="13" column="1">
+             <item row="14" column="1">
               <widget class="QPlainTextEdit" name="note_edit">
                <property name="maximumHeight">
                 <number>50</number>

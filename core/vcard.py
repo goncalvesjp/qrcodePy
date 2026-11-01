@@ -57,6 +57,7 @@ class VCard:
     emails: list[str] = field(default_factory=list)
     mobiles_personnels: list[str] = field(default_factory=list)
     mobiles_professionnels: list[str] = field(default_factory=list)
+    mobile_secondaire: str = ""
     telephones_domicile: list[str] = field(default_factory=list)
     telephones_travail: list[str] = field(default_factory=list)
     telephones_fax: list[str] = field(default_factory=list)
@@ -75,6 +76,7 @@ class VCard:
         emails: str,
         mobiles_personnels: str,
         mobiles_professionnels: str,
+        mobile_secondaire: str,
         telephones_domicile: str,
         telephones_travail: str,
         telephones_fax: str,
@@ -92,6 +94,7 @@ class VCard:
             emails=_valeurs_multiples(emails),
             mobiles_personnels=_valeurs_multiples(mobiles_personnels),
             mobiles_professionnels=_valeurs_multiples(mobiles_professionnels),
+            mobile_secondaire=mobile_secondaire.strip(),
             telephones_domicile=_valeurs_multiples(telephones_domicile),
             telephones_travail=_valeurs_multiples(telephones_travail),
             telephones_fax=_valeurs_multiples(telephones_fax),
@@ -110,6 +113,7 @@ class VCard:
             or self.emails
             or self.mobiles_personnels
             or self.mobiles_professionnels
+            or self.mobile_secondaire
             or self.telephones_domicile
             or self.telephones_travail
             or self.telephones_fax
@@ -138,6 +142,9 @@ class VCard:
 
         for mobile in self.mobiles_professionnels:
             lignes.append(f"TEL;TYPE=CELL,WORK:{_escape(mobile)}")
+
+        if self.mobile_secondaire:
+            lignes.append(f"TEL;TYPE=CELL:{_escape(self.mobile_secondaire)}")
 
         for telephone in self.telephones_domicile:
             lignes.append(f"TEL;TYPE=HOME,VOICE:{_escape(telephone)}")

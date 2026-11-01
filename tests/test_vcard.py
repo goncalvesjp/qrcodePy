@@ -12,6 +12,7 @@ def test_depuis_champs_decoupe_les_valeurs_multiples():
         emails="jean@exemple.com; j.dupont@travail.com",
         mobiles_personnels="0612345678",
         mobiles_professionnels="",
+        mobile_secondaire="  0611112222  ",
         telephones_domicile="",
         telephones_travail="0123456789; 0198765432",
         telephones_fax="",
@@ -24,6 +25,7 @@ def test_depuis_champs_decoupe_les_valeurs_multiples():
     assert vcard.emails == ["jean@exemple.com", "j.dupont@travail.com"]
     assert vcard.mobiles_personnels == ["0612345678"]
     assert vcard.mobiles_professionnels == []
+    assert vcard.mobile_secondaire == "0611112222"
     assert vcard.telephones_domicile == []
     assert vcard.telephones_travail == ["0123456789", "0198765432"]
     assert vcard.url == "https://www.exemple.com"
@@ -39,6 +41,7 @@ def test_normalisation_url_et_linkedin_deja_complets():
         emails="",
         mobiles_personnels="",
         mobiles_professionnels="",
+        mobile_secondaire="",
         telephones_domicile="",
         telephones_travail="",
         telephones_fax="",
@@ -61,6 +64,7 @@ def test_to_vcard_string_contient_les_champs_attendus():
         emails=["jean@exemple.com"],
         mobiles_personnels=["0612345678"],
         mobiles_professionnels=["0700000000"],
+        mobile_secondaire="0611112222",
         telephones_domicile=["0123456789"],
         telephones_travail=["0198765432"],
         telephones_fax=["0111111111"],
@@ -80,6 +84,7 @@ def test_to_vcard_string_contient_les_champs_attendus():
     assert "TITLE:Directeur commercial" in texte
     assert "TEL;TYPE=CELL,HOME:0612345678" in texte
     assert "TEL;TYPE=CELL,WORK:0700000000" in texte
+    assert "TEL;TYPE=CELL:0611112222" in texte
     assert "TEL;TYPE=HOME,VOICE:0123456789" in texte
     assert "TEL;TYPE=WORK,VOICE:0198765432" in texte
     assert "TEL;TYPE=FAX:0111111111" in texte
@@ -94,3 +99,4 @@ def test_est_vide():
     assert VCard().est_vide()
     assert not VCard(prenom="Jean").est_vide()
     assert not VCard(linkedin="https://www.linkedin.com/in/jean-dupont").est_vide()
+    assert not VCard(mobile_secondaire="0611112222").est_vide()

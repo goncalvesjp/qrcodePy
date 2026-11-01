@@ -40,6 +40,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             emails=self.emails_edit.text(),
             mobiles_personnels=self.mobiles_perso_edit.text(),
             mobiles_professionnels=self.mobiles_pro_edit.text(),
+            mobile_secondaire=self.mobile_secondaire_edit.text(),
             telephones_domicile=self.telephones_domicile_edit.text(),
             telephones_travail=self.telephones_travail_edit.text(),
             telephones_fax=self.fax_edit.text(),
