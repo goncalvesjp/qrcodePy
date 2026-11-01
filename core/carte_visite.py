@@ -24,9 +24,9 @@ _COULEUR_TEXTE = (24, 28, 44)
 _COULEUR_SECONDAIRE = (110, 116, 130)
 
 
-def generer_carte_pixmap(vcard: VCard) -> QPixmap:
+def generer_carte_pixmap(vcard: VCard, couleur_qr: str = "black") -> QPixmap:
     """Compose la carte de visite pour `vcard` et la retourne sous forme de QPixmap."""
-    qr_image = generer_qr_image(vcard.to_vcard_string())
+    qr_image = generer_qr_image(vcard.to_vcard_string(), couleur_qr)
     return pil_vers_qpixmap(_composer_carte(vcard, qr_image))
 
 

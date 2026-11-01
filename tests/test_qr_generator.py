@@ -1,6 +1,6 @@
 """Tests de la génération d'image QR code, avec et sans texte additionnel."""
 
-from core.qr_generator import generer_qr_pixmap
+from core.qr_generator import couleur_suffisamment_contrastee, generer_qr_image, generer_qr_pixmap
 
 
 def test_sans_texte_additionnel():
@@ -29,3 +29,21 @@ def test_texte_vide_ou_blanc_ne_change_pas_la_taille():
 def test_avec_texte_accentue():
     pixmap = generer_qr_pixmap("BEGIN:VCARD", texte_haut="Société Générale Évènementiel")
     assert not pixmap.isNull()
+
+
+def test_generer_qr_image_applique_la_couleur_choisie():
+    image = generer_qr_image("BEGIN:VCARD", couleur="#0057B8")
+    # Pixel dans le repère de coin (finder pattern, hors zone de silence) : doit porter la couleur choisie.
+    assert image.getpixel((25, 25)) == (0, 87, 184)
+
+
+def test_generer_qr_pixmap_avec_couleur():
+    pixmap = generer_qr_pixmap("BEGIN:VCARD", couleur="#0057B8")
+    assert not pixmap.isNull()
+
+
+def test_couleur_suffisamment_contrastee():
+    assert couleur_suffisamment_contrastee("#000000")
+    assert couleur_suffisamment_contrastee("#0057B8")
+    assert not couleur_suffisamment_contrastee("#FFFF00")
+    assert not couleur_suffisamment_contrastee("#FFFFFF")

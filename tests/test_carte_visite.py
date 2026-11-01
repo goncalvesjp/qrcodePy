@@ -21,6 +21,12 @@ def test_generer_carte_pixmap_avec_vcard_minimale():
     assert not pixmap.isNull()
 
 
+def test_generer_carte_pixmap_avec_couleur_personnalisee():
+    vcard = VCard(prenom="Jean", nom="Dupont")
+    pixmap = generer_carte_pixmap(vcard, couleur_qr="#0057B8")
+    assert not pixmap.isNull()
+
+
 def test_tronquer_laisse_le_texte_court_intact():
     dessin = ImageDraw.Draw(Image.new("RGB", (10, 10)))
     police = charger_police(20)

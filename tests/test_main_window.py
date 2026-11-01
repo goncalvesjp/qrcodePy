@@ -1,6 +1,7 @@
 """Tests de la fenêtre principale."""
 
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QTableWidgetItem
 
 from core.main_window import MainWindow
@@ -109,6 +110,53 @@ def test_champs_personnalises_inclus_dans_la_vcard_generee(qtbot):
 
     assert window._vcard.champs_personnalises == [("Skype", "jdupont")]
     assert "X-SKYPE:jdupont" in window._vcard.to_vcard_string()
+
+
+def test_couleur_button_ouvre_le_selecteur_et_met_a_jour_la_couleur(qtbot, monkeypatch):
+    nouvelle_couleur = QColor("#0057B8")
+    monkeypatch.setattr(
+        "core.main_window.QColorDialog.getColor",
+        lambda *args, **kwargs: nouvelle_couleur,
+    )
+
+    window = MainWindow()
+    qtbot.addWidget(window)
+
+    qtbot.mouseClick(window.couleur_button, Qt.MouseButton.LeftButton)
+
+    assert window._couleur_qr.name() == nouvelle_couleur.name()
+    assert window.couleur_button.text() == nouvelle_couleur.name()
+
+
+def test_couleur_button_annule_ne_change_rien(qtbot, monkeypatch):
+    monkeypatch.setattr(
+        "core.main_window.QColorDialog.getColor",
+        lambda *args, **kwargs: QColor(),  # couleur invalide = annulation
+    )
+
+    window = MainWindow()
+    qtbot.addWidget(window)
+    couleur_initiale = window._couleur_qr.name()
+
+    qtbot.mouseClick(window.couleur_button, Qt.MouseButton.LeftButton)
+
+    assert window._couleur_qr.name() == couleur_initiale
+
+
+def test_generer_button_utilise_la_couleur_choisie(qtbot, monkeypatch):
+    monkeypatch.setattr(
+        "core.main_window.QColorDialog.getColor",
+        lambda *args, **kwargs: QColor("#0057B8"),
+    )
+
+    window = MainWindow()
+    qtbot.addWidget(window)
+    qtbot.mouseClick(window.couleur_button, Qt.MouseButton.LeftButton)
+
+    window.prenom_edit.setText("Jean")
+    qtbot.mouseClick(window.generer_button, Qt.MouseButton.LeftButton)
+
+    assert window._qr_pixmap is not None
 
 
 def test_action_a_propos_affiche_le_dialogue(qtbot, monkeypatch):
