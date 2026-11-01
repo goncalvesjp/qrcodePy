@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Générateur de QR Codes</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="leftVerticalLayout">
+      <item>
+       <widget class="QGroupBox" name="contact_group">
+        <property name="title">
+         <string>Carte de contact (vCard)</string>
+        </property>
+        <layout class="QVBoxLayout" name="contactGroupLayout">
+         <item>
+          <widget class="QScrollArea" name="contact_scroll">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::NoFrame</enum>
+           </property>
+           <widget class="QWidget" name="contact_scroll_contents">
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="prenom_label">
+               <property name="text">
+                <string>Prénom :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="prenom_edit"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="nom_label">
+               <property name="text">
+                <string>Nom :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="nom_edit"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="societe_label">
+               <property name="text">
+                <string>Société :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="societe_edit"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="titre_label">
+               <property name="text">
+                <string>Titre (fonction) :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="titre_edit">
+               <property name="placeholderText">
+                <string>ex: Directeur commercial</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="emails_label">
+               <property name="text">
+                <string>Email(s) :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="emails_edit">
+               <property name="placeholderText">
+                <string>ex: jean.dupont@exemple.com; j.dupont@travail.com</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="mobiles_perso_label">
+               <property name="text">
+                <string>Mobile(s) personnel(s) :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="mobiles_perso_edit">
+               <property name="placeholderText">
+                <string>ex: 06 12 34 56 78</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="mobiles_pro_label">
+               <property name="text">
+                <string>Mobile(s) professionnel(s) :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QLineEdit" name="mobiles_pro_edit">
+               <property name="placeholderText">
+                <string>ex: 07 00 00 00 00</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="telephones_domicile_label">
+               <property name="text">
+                <string>Téléphone domicile :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLineEdit" name="telephones_domicile_edit">
+               <property name="placeholderText">
+                <string>ex: 01 23 45 67 89</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="telephones_travail_label">
+               <property name="text">
+                <string>Téléphone travail :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QLineEdit" name="telephones_travail_edit">
+               <property name="placeholderText">
+                <string>ex: 01 98 76 54 32</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0">
+              <widget class="QLabel" name="fax_label">
+               <property name="text">
+                <string>Fax :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <widget class="QLineEdit" name="fax_edit"/>
+             </item>
+             <item row="10" column="0">
+              <widget class="QLabel" name="adresse_label">
+               <property name="text">
+                <string>Adresse :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="1">
+              <widget class="QPlainTextEdit" name="adresse_edit">
+               <property name="maximumHeight">
+                <number>60</number>
+               </property>
+              </widget>
+             </item>
+             <item row="11" column="0">
+              <widget class="QLabel" name="url_label">
+               <property name="text">
+                <string>Site web :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="11" column="1">
+              <widget class="QLineEdit" name="url_edit">
+               <property name="placeholderText">
+                <string>ex: www.exemple.com</string>
+               </property>
+              </widget>
+             </item>
+             <item row="12" column="0">
+              <widget class="QLabel" name="linkedin_label">
+               <property name="text">
+                <string>LinkedIn :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="12" column="1">
+              <widget class="QLineEdit" name="linkedin_edit">
+               <property name="placeholderText">
+                <string>ex: jean-dupont ou https://www.linkedin.com/in/jean-dupont</string>
+               </property>
+              </widget>
+             </item>
+             <item row="13" column="0">
+              <widget class="QLabel" name="note_label">
+               <property name="text">
+                <string>Note :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="13" column="1">
+              <widget class="QPlainTextEdit" name="note_edit">
+               <property name="maximumHeight">
+                <number>50</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="texte_group">
+        <property name="title">
+         <string>Texte affiché avec le QR code</string>
+        </property>
+        <layout class="QFormLayout" name="texteFormLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="texte_haut_label">
+           <property name="text">
+            <string>Au-dessus :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="texte_haut_edit">
+           <property name="placeholderText">
+            <string>ex: Jean Dupont</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="texte_bas_label">
+           <property name="text">
+            <string>En-dessous :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="texte_bas_edit">
+           <property name="placeholderText">
+            <string>ex: www.exemple.com</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="generer_button">
+        <property name="text">
+         <string>Générer le QR code</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="previewVerticalLayout">
+      <item>
+       <widget class="QLabel" name="qr_preview_label">
+        <property name="minimumSize">
+         <size>
+          <width>320</width>
+          <height>320</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::Box</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+        <property name="text">
+         <string>Aucun QR code généré</string>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="enregistrer_button">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Enregistrer...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="previewSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_file">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="action_quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_aide">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+    <addaction name="action_a_propos"/>
+   </widget>
+   <addaction name="menu_file"/>
+   <addaction name="menu_aide"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_quit">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="action_a_propos">
+   <property name="text">
+    <string>À propos...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
