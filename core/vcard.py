@@ -3,6 +3,7 @@ Construction de la charge utile vCard (RFC 2426, version 3.0) pour un QR code
 de type carte de contact.
 """
 
+import re
 from dataclasses import dataclass, field
 
 
@@ -46,6 +47,15 @@ def _normaliser_linkedin(valeur: str) -> str:
     return f"https://www.linkedin.com/in/{valeur.strip('/')}"
 
 
+def _normaliser_nom_champ(nom: str) -> str:
+    """Convertit un nom de champ libre en identifiant de propriété vCard
+    (ex: 'Numéro Skype' -> 'X-NUMERO-SKYPE')."""
+    nom_normalise = re.sub(r"[^A-Za-z0-9]+", "-", nom.strip()).strip("-").upper()
+    if not nom_normalise:
+        return ""
+    return nom_normalise if nom_normalise.startswith("X-") else f"X-{nom_normalise}"
+
+
 @dataclass
 class VCard:
     """Informations d'un contact, destinées à être encodées dans un QR code."""
@@ -65,6 +75,7 @@ class VCard:
     url: str = ""
     linkedin: str = ""
     note: str = ""
+    champs_personnalises: list[tuple[str, str]] = field(default_factory=list)
 
     @classmethod
     def depuis_champs(
@@ -84,8 +95,13 @@ class VCard:
         url: str,
         linkedin: str,
         note: str,
+        champs_personnalises: list[tuple[str, str]] = (),
     ) -> "VCard":
-        """Construit une VCard à partir des champs texte bruts du formulaire."""
+        """Construit une VCard à partir des champs texte bruts du formulaire.
+
+        `champs_personnalises` est déjà structurée (nom, valeur) : elle vient
+        du tableau de champs libres du formulaire, pas d'un simple champ texte.
+        """
         return cls(
             prenom=prenom.strip(),
             nom=nom.strip(),
@@ -102,6 +118,9 @@ class VCard:
             url=_normaliser_url(url),
             linkedin=_normaliser_linkedin(linkedin),
             note=note.strip(),
+            champs_personnalises=[
+                (n.strip(), v.strip()) for n, v in champs_personnalises if n.strip() and v.strip()
+            ],
         )
 
     def est_vide(self) -> bool:
@@ -121,6 +140,7 @@ class VCard:
             or self.url
             or self.linkedin
             or self.note
+            or self.champs_personnalises
         )
 
     def to_vcard_string(self) -> str:
@@ -169,6 +189,11 @@ class VCard:
 
         if self.note:
             lignes.append(f"NOTE:{_escape(self.note)}")
+
+        for nom_champ, valeur in self.champs_personnalises:
+            nom_normalise = _normaliser_nom_champ(nom_champ)
+            if nom_normalise:
+                lignes.append(f"{nom_normalise}:{_escape(valeur)}")
 
         lignes.append("END:VCARD")
         return "\r\n".join(lignes) + "\r\n"

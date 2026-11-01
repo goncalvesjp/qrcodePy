@@ -235,6 +235,59 @@
        </widget>
       </item>
       <item>
+       <widget class="QGroupBox" name="champs_perso_group">
+        <property name="title">
+         <string>Champs personnalisés</string>
+        </property>
+        <layout class="QVBoxLayout" name="champsPersoGroupLayout">
+         <item>
+          <widget class="QTableWidget" name="champs_perso_table">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>130</height>
+            </size>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+           </property>
+           <property name="columnCount">
+            <number>2</number>
+           </property>
+           <column>
+            <property name="text">
+             <string>Nom</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Valeur</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="champsPersoBoutonsLayout">
+           <item>
+            <widget class="QPushButton" name="champ_ajouter_button">
+             <property name="text">
+              <string>Ajouter un champ</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="champ_supprimer_button">
+             <property name="text">
+              <string>Supprimer la ligne sélectionnée</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QGroupBox" name="texte_group">
         <property name="title">
          <string>Texte affiché avec le QR code</string>

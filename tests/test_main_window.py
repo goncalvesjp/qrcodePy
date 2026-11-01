@@ -1,6 +1,7 @@
 """Tests de la fenêtre principale."""
 
 from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QTableWidgetItem
 
 from core.main_window import MainWindow
 
@@ -64,6 +65,50 @@ def test_carte_button_enregistre_la_carte_de_visite(qtbot, monkeypatch, tmp_path
     qtbot.mouseClick(window.carte_button, Qt.MouseButton.LeftButton)
 
     assert chemin.exists()
+
+
+def test_champ_ajouter_button_insere_une_ligne(qtbot):
+    window = MainWindow()
+    qtbot.addWidget(window)
+
+    assert window.champs_perso_table.rowCount() == 0
+
+    qtbot.mouseClick(window.champ_ajouter_button, Qt.MouseButton.LeftButton)
+
+    assert window.champs_perso_table.rowCount() == 1
+
+
+def test_champ_supprimer_button_retire_la_ligne_selectionnee(qtbot):
+    window = MainWindow()
+    qtbot.addWidget(window)
+
+    window.champs_perso_table.insertRow(0)
+    window.champs_perso_table.setItem(0, 0, QTableWidgetItem("Skype"))
+    window.champs_perso_table.setItem(0, 1, QTableWidgetItem("jdupont"))
+    window.champs_perso_table.insertRow(1)
+    window.champs_perso_table.setItem(1, 0, QTableWidgetItem("Telegram"))
+    window.champs_perso_table.setItem(1, 1, QTableWidgetItem("@jdupont"))
+
+    window.champs_perso_table.selectRow(0)
+    qtbot.mouseClick(window.champ_supprimer_button, Qt.MouseButton.LeftButton)
+
+    assert window.champs_perso_table.rowCount() == 1
+    assert window.champs_perso_table.item(0, 0).text() == "Telegram"
+
+
+def test_champs_personnalises_inclus_dans_la_vcard_generee(qtbot):
+    window = MainWindow()
+    qtbot.addWidget(window)
+
+    window.prenom_edit.setText("Jean")
+    window.champs_perso_table.insertRow(0)
+    window.champs_perso_table.setItem(0, 0, QTableWidgetItem("Skype"))
+    window.champs_perso_table.setItem(0, 1, QTableWidgetItem("jdupont"))
+
+    qtbot.mouseClick(window.generer_button, Qt.MouseButton.LeftButton)
+
+    assert window._vcard.champs_personnalises == [("Skype", "jdupont")]
+    assert "X-SKYPE:jdupont" in window._vcard.to_vcard_string()
 
 
 def test_action_a_propos_affiche_le_dialogue(qtbot, monkeypatch):

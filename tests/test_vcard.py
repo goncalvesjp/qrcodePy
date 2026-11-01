@@ -1,6 +1,6 @@
 """Tests de la construction de la chaîne vCard."""
 
-from core.vcard import VCard
+from core.vcard import VCard, _normaliser_nom_champ
 
 
 def test_depuis_champs_decoupe_les_valeurs_multiples():
@@ -100,3 +100,42 @@ def test_est_vide():
     assert not VCard(prenom="Jean").est_vide()
     assert not VCard(linkedin="https://www.linkedin.com/in/jean-dupont").est_vide()
     assert not VCard(mobile_secondaire="0611112222").est_vide()
+    assert not VCard(champs_personnalises=[("Skype", "jdupont")]).est_vide()
+
+
+def test_depuis_champs_ignore_les_lignes_incompletes():
+    vcard = VCard.depuis_champs(
+        prenom="",
+        nom="",
+        societe="",
+        titre="",
+        emails="",
+        mobiles_personnels="",
+        mobiles_professionnels="",
+        mobile_secondaire="",
+        telephones_domicile="",
+        telephones_travail="",
+        telephones_fax="",
+        adresse="",
+        url="",
+        linkedin="",
+        note="",
+        champs_personnalises=[("Skype", "jdupont"), ("", "valeur orpheline"), ("Nom orphelin", "")],
+    )
+
+    assert vcard.champs_personnalises == [("Skype", "jdupont")]
+
+
+def test_normaliser_nom_champ():
+    assert _normaliser_nom_champ("Skype") == "X-SKYPE"
+    assert _normaliser_nom_champ("Numéro fax perso") == "X-NUM-RO-FAX-PERSO"
+    assert _normaliser_nom_champ("X-DEJA-PREFIXE") == "X-DEJA-PREFIXE"
+    assert _normaliser_nom_champ("   ") == ""
+
+
+def test_to_vcard_string_inclut_les_champs_personnalises():
+    vcard = VCard(prenom="Jean", champs_personnalises=[("Skype", "jdupont"), ("", "ignoré")])
+
+    texte = vcard.to_vcard_string()
+
+    assert "X-SKYPE:jdupont" in texte

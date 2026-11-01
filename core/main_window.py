@@ -6,7 +6,7 @@ et export en PNG, JPEG ou PDF.
 """
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox
+from PyQt6.QtWidgets import QFileDialog, QMainWindow, QMessageBox, QTableWidgetItem
 
 from core.carte_visite import generer_carte_pixmap
 from core.export import FILTRES, completer_extension, enregistrer_image
@@ -25,9 +25,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._qr_pixmap = None
         self._vcard = None
 
+        self.champs_perso_table.horizontalHeader().setStretchLastSection(True)
+
         self.generer_button.clicked.connect(self.handle_generer_button_click)
         self.enregistrer_button.clicked.connect(self.handle_enregistrer_button_click)
         self.carte_button.clicked.connect(self.handle_carte_button_click)
+        self.champ_ajouter_button.clicked.connect(self.handle_champ_ajouter_click)
+        self.champ_supprimer_button.clicked.connect(self.handle_champ_supprimer_click)
         self.action_quit.triggered.connect(self.close)
         self.action_a_propos.triggered.connect(self.handle_a_propos_click)
 
@@ -48,7 +52,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             url=self.url_edit.text(),
             linkedin=self.linkedin_edit.text(),
             note=self.note_edit.toPlainText(),
+            champs_personnalises=self._lire_champs_personnalises(),
         )
+
+    def _lire_champs_personnalises(self) -> list[tuple[str, str]]:
+        champs = []
+        for ligne in range(self.champs_perso_table.rowCount()):
+            item_nom = self.champs_perso_table.item(ligne, 0)
+            item_valeur = self.champs_perso_table.item(ligne, 1)
+            champs.append((
+                item_nom.text() if item_nom else "",
+                item_valeur.text() if item_valeur else "",
+            ))
+        return champs
+
+    def handle_champ_ajouter_click(self):
+        """Ajoute une ligne vide au tableau des champs personnalisés."""
+        ligne = self.champs_perso_table.rowCount()
+        self.champs_perso_table.insertRow(ligne)
+        self.champs_perso_table.setItem(ligne, 0, QTableWidgetItem())
+        self.champs_perso_table.setItem(ligne, 1, QTableWidgetItem())
+        self.champs_perso_table.setCurrentCell(ligne, 0)
+        self.champs_perso_table.editItem(self.champs_perso_table.item(ligne, 0))
+
+    def handle_champ_supprimer_click(self):
+        """Supprime la ou les lignes sélectionnées du tableau des champs personnalisés."""
+        lignes = {index.row() for index in self.champs_perso_table.selectedIndexes()}
+        for ligne in sorted(lignes, reverse=True):
+            self.champs_perso_table.removeRow(ligne)
 
     def handle_generer_button_click(self):
         """Construit la vCard depuis le formulaire et affiche son QR code."""
