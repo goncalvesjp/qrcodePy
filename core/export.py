@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Enregistrement d'une image (QR code, carte de visite, ...) sur disque (PNG, JPEG ou PDF)."""
 
 from PyQt6.QtCore import QMarginsF, QSizeF

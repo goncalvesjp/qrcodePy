@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Chargement de police pour le texte dessiné sur les images générées (QR code, carte)."""
 
 import sys

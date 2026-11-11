@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Construction de la charge utile vCard (RFC 2426, version 3.0) pour un QR code
 de type carte de contact.

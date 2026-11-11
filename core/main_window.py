@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Module de la fenêtre principale.
 
@@ -171,5 +172,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             f"<p>Version {version_application()}</p>"
             "<p>Application de bureau PyQt6 pour générer des QR codes : "
             "carte de contact (vCard), texte personnalisé au-dessus/en-dessous, "
-            "export en PNG, JPEG ou PDF.</p>",
+            "export en PNG, JPEG ou PDF.</p>"
+            "<p>© 2026 Jean-Pierre Gonçalves<br>Licence GNU GPL v3 ou ultérieure.</p>",
         )

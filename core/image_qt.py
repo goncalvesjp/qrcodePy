@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Conversion d'une image Pillow vers un QPixmap."""
 
 from io import BytesIO

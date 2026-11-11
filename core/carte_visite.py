@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Composition d'une carte de visite numérique : QR code + coordonnées
 essentielles (nom, mobile, téléphone, email), au format carte de crédit
